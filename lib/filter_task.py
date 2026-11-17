@@ -93,8 +93,9 @@ def filter_task():
             'projects': prjs if prjs else None,
             'facilities': fcs if fcs else None
         }
+        return result
     except Exception as e:
         print(f'Ошибка получения filter_task: {e}')
     finally:
         db.close()
-    return result
+    # return result

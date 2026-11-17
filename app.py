@@ -24,8 +24,24 @@ Helpers.init_page()
 
 # ============================= Аутентификация ==============================
 
-UiAuth.employee_info()
+# UiAuth.employee_info()
+# Создаём сессию базы данных
 session = SessionLocal()
+
+try:
+    # Получаем пользователя с id=1
+    employee = session.query(Employee).filter_by(id=1).one_or_none()
+
+    if employee is None:
+        st.error("Пользователь с id=1 не найден в базе данных")
+        st.stop()
+
+    st.session_state.employee = employee
+    st.session_state.employee_dict = employee.employee_dict()
+    st.session_state.employee_current = employee.employee_dict()
+
+finally:
+    session.close()
 
 # ============================ Главная страница =============================
 UiTasks.render_tasks_sidebar()
@@ -58,4 +74,5 @@ st.session_state.current_page_model = None
 with st.popover(label='', icon=':material/filter_alt:'):
     filt = filter_task()
 
+# UiTasks.render_tasks_block_main_page(None)
 UiTasks.render_tasks_block_main_page(filt)
