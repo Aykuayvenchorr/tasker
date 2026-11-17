@@ -1,0 +1,6 @@
+pillow
+streamlit
+psycopg2-binary
+python-dotenv
+Authlib
+sqlalchemy
