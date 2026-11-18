@@ -10,7 +10,7 @@ class UiAuth:
         # st.markdown(f"👤 {st.user.preferred_username}, добрый день!")
         # st.session_state.user_email = st.context.headers.get("X-Auth-Request-Email")
         # st.session_state.user = st.context.headers.get("X-Auth-Request-User")
-        st.markdown(f"👤 {st.session_state.user_email}, добрый день!")
+        st.markdown(f"👤 {st.session_state.employee.name}, добрый день!")
         # st.markdown(f"{st.session_state.user}")
 
     @staticmethod

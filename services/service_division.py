@@ -158,10 +158,11 @@ class ServiceDivision():
             # Предварительная проверка на существование заводимого Подразделения
             div_name = db.query(Division).filter_by(name=name).one_or_none()
             div_abbr = db.query(Division).filter_by(abbr=abbr).one_or_none()
-            if div_name or div_abbr:
+            comp = db.query(Company).filter_by(name=company_name).one_or_none()
+
+            if div_name and div_abbr and comp:
                 return False, '❌ Такое Подразделение уже существует'
             # Если такого Подразделения не существует стандартное добавление
-            comp = db.query(Company).filter_by(name=company_name).one_or_none()
 
             div = Division(name=name,
                           abbr=abbr,

@@ -3,14 +3,14 @@ import streamlit as st
 import pandas as pd
 
 from datetime import date
-
+from models import SessionLocal, BusinessPlanStr, TaskImportanceEnum, DB_PATH
 from utils.helpers import Helpers
 
 from services.service_busplanstr import ServiceBusplanStr
 from services.service_busplan import ServiceBusplan
 from services.service_project import ServiceProject
 from services.service_task import ServiceTask
-from models import TaskImportanceEnum
+from models import BusinessPlanStr, TaskImportanceEnum
 from ui.ui_tasks import UiTasks
 
 
@@ -72,6 +72,7 @@ class UiBusplanStr:
 
         st.divider()
         st.subheader("Задачи по выбранной строке")
+
         if job_id is None:
             st.info("Выбери строку с оплатой, чтобы увидеть связанные задачи.")
         
@@ -83,7 +84,6 @@ class UiBusplanStr:
             )
         
             tasks = ServiceTask.get_tasks_by_job(job_id)
-        
             if tasks:
                 for task in tasks:
                     UiTasks.render_task(
@@ -443,9 +443,8 @@ class UiBusplanStr:
             employee_created = st.session_state.employee.id
 
             try:
-
                 res, msg = ServiceBusplanStr.db_job_task_insert(
-                    bpstr_id=bpstr_id,
+                    bpstr_id=int(bpstr_id),
 
                     # Данные Job
                     dt_start=dt_start,

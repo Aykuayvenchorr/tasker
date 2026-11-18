@@ -693,7 +693,7 @@ class ServiceTask():
     def get_tasks_by_job(job_id):
         db = SessionLocal() 
         try:
-            tasks = db.query(Task).filter(Task.job == job_id).all()
+            tasks = db.query(Task).filter(Task.job == int(job_id)).all()
             return tasks
         except Exception as e:
             db.rollback()

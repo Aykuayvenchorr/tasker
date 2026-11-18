@@ -2,8 +2,6 @@ import streamlit as st
 from models import SessionLocal, Company, Division, Employee, License, Project, Task, TaskImportanceEnum, TaskStatusEnum, engine
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy import text
-# from my_pages.p001_login import login
-# import sreamlit_authenticator as stauth
 
 from auth import setup_auth_env, authenticate_user
 from lib.filter_task import filter_task
@@ -24,16 +22,14 @@ Helpers.init_page()
 
 # ============================= Аутентификация ==============================
 
-# UiAuth.employee_info()
 # Создаём сессию базы данных
 session = SessionLocal()
-
 try:
-    # Получаем пользователя с id=1
-    employee = session.query(Employee).filter_by(id=1).one_or_none()
+    # Получаем пользователя с id=2
+    employee = session.query(Employee).filter_by(id=2).one_or_none()
 
     if employee is None:
-        st.error("Пользователь с id=1 не найден в базе данных")
+        st.error("Пользователь с id=2 не найден в базе данных")
         st.stop()
 
     st.session_state.employee = employee
@@ -46,26 +42,6 @@ finally:
 # ============================ Главная страница =============================
 UiTasks.render_tasks_sidebar()
 UiTasks.render_tasks()
-
-
-# Проверка наличия зарегистрированного сотрудника
-# ==========================================================================
-
-# st.write(st.user)
-# user_email = st.context.headers.get("X-Auth-Request-Email")
-# st.write(f"Текущий пользователь: {user_email}")
-# st.write(st.context.headers)
-
-# employee = session.query(Employee).filter_by(note=st.session_state.user).one_or_none()
-
-# if not (employee):
-#     st.error(f"⛔️ Вас не зарегистрировали в самом приложении ({st.session_state.user})")
-#     st.stop()
-# else:
-#     st.session_state.employee_current = employee.employee_dict()
-#     st.session_state.employee = employee
-#     st.session_state.employee_dict = employee.employee_dict()
-
 
 
 # Текущая страница

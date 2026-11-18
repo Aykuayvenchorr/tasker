@@ -8,7 +8,8 @@ class ServiceAuth():
     def get_empoyee(user):
         db = SessionLocal()
         try:
-            employee = db.query(Employee).filter_by(note=user).one_or_none()
+            # employee = db.query(Employee).filter_by(note=user).one_or_none()
+            employee = db.query(Employee).filter_by(id=2).one_or_none()
             return employee if employee else None
         except Exception as e:
             print(f'Ошибка получения сотрудника: {e}')
@@ -31,7 +32,8 @@ class ServiceAuth():
     def get_admin(user):
         db = SessionLocal()
         try:
-            employee = db.query(Employee).filter_by(note=user).one_or_none()
+            # employee = db.query(Employee).filter_by(note=user).one_or_none()
+            employee = db.query(Employee).filter_by(id=2).one_or_none()
             admin = employee.isadmin
             return admin
         except Exception as e:
